@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import './EntryField.css';
 
 function EntryField({ label, type = 'text', placeholder, value, onChange }) {
+  //label= text above the entry field, type= default text, placeholder=what will appear in the field while waiting reponse, value= user input, onchange attaches function to run when value changes
   return (
-    <div>
+    <div className="entry_field">
       <label>{label}</label>
-      <type
+      <input
         type={type}
         placeholder={placeholder}
         value={value}

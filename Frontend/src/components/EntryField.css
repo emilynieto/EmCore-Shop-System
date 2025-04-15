@@ -1,0 +1,21 @@
+/* EntryField.css */
+.entry_field {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.entry_field label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.entry_field input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+}
