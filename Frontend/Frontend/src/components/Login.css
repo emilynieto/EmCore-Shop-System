@@ -1,0 +1,33 @@
+/* Top-left logo */
+.flex_container {
+  width: 100%;
+  padding: 20px;
+}
+
+.flex_container h1 {
+  font-size: 24px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+/* Instruction text */
+.login_instruct {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* Login box */
+.login_box {
+  width: 400px;
+  height: 300px;
+  margin: 20px auto; /* centers it horizontally */
+  padding: 30px;
+  background-color: whitesmoke;
+  border: 2px solid black;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
