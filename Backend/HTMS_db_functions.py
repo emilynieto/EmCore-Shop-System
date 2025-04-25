@@ -137,13 +137,27 @@ def Companys():
 
 
 
-
-def add_WorkOrder(WorkOrderID, EstimateID, QTY, Price):
+@app.route("/WorkOrder", methods=['GET','POST'])
+def WorkOrder():
         conn= db_connection()
         cursor=conn.cursor()
-        sql="Insert into WorkOrder() values(%s,%s)"
-        cursor.execute(sql,(WorkOrderID, EstimateID, QTY, Price))
-        conn.commit()
+
+
+        if request.method == 'POST':
+                data = request.json
+                WorkOrderID = data.get("Work Order ID")
+                EstimateID = data.get("EstimateID")
+                Qty = data.get("QTY")
+                Price = data.get("Price")
+                sql="Insert into WorkOrder() values(%s,%s)"
+                cursor.execute(sql,(WorkOrderID, EstimateID, Qty, Price))
+                conn.commit()
+        if request.method == 'GET':
+                data = request.json
+                if data is not None:
+                        WorkOrderID = data.get("Work Order ID")
+                else:
+                        sql="SELECT * FROM WorkOrder"
         print("✅ WorkOrder added successfully!")
 
 

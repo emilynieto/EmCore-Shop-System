@@ -6,6 +6,8 @@ import './Login.css';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault(); // prevent page reload
 
@@ -20,7 +22,7 @@ function Login() {
 
       if (response.ok) {
         alert('✅ Login successful');
-        // navigate("/dashboard"); // disable until dashboard is made
+        navigate('/Home');
       } else {
         alert('Invalid username or password');
       }
