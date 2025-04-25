@@ -8,15 +8,6 @@ CORS(app, origins=["http://localhost:5173"]) #allows communication with react wh
 
 
 
-# Replace these values with your MySQL credentials
-# db = mysql.connector.connect(
-#     host="localhost",
-#     user="root",
-#     password="***REMOVED***",
-#     database="htms_system"
-# )
-
-
 #function to connect to the database
 def db_connection():
         conn = None
