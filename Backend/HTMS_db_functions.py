@@ -4,7 +4,7 @@ import pymysql
 import bcrypt #this is used for hashing passwords to protect from hackers
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173"])
+CORS(app, origins=["http://localhost:5173"]) #allows communication with react which runs in browser under that http
 
 
 
@@ -25,7 +25,7 @@ def db_connection():
                                         user="root",
                                         password="***REMOVED***",
                                         database="htms_system",
-                                        cursorclass= pymysql.cursors.DictCursor
+                                        cursorclass= pymysql.cursors.DictCursor #changes the SQL query responses to dictionaries, where column names are used as dictionary keys instead of using index positions (tuples).
                                         )
         except pymysql.Error as e:
                 print(e)
@@ -44,31 +44,25 @@ def greet():
 
 @app.route('/', methods=['POST'])
 def login():
-        try:
-                conn = db_connection()
-                cursor = conn.cursor()
-                data = request.json
-                Username = data.get('username')
-                Password = data.get('password').encode('utf-8')  # Convert the password to bytes
-                sql = "SELECT Password FROM User WHERE Username=%s"
-                cursor.execute(sql, (Username,))
-                correctPass = cursor.fetchone()
-                cursor.close()
-                conn.close()
-                if correctPass is not None:
-                        storedHash = correctPass["Password"].encode('utf-8')  # Convert the password from the database to bytes
-                        print(f"Stored password hash: {storedHash}")
-                        if bcrypt.checkpw(Password, storedHash):  # Check if the password is correct
-                                return "Login successful", 200
-                        else:
-                                return "Invalid username or password", 404
+        conn = db_connection()
+        cursor = conn.cursor()
+        data = request.json
+        Username = data.get('username')
+        Password = data.get('password').encode('utf-8')  # Convert the password to bytes
+        sql = "SELECT Password FROM User WHERE Username=%s"#placeholder used to prevent SQL injection attacks
+        cursor.execute(sql, (Username,))#provide (username,) to give pysmysql a tuple with one value pymysql requires tuple parameters
+        correctPass = cursor.fetchone()
+        cursor.close()
+        conn.close()
+        if correctPass is not None:
+                storedHash = correctPass["Password"].encode('utf-8') #Use ["Password"] because that is the key to the dict returned,Convert the password from the database to bytes
+                print(f"Stored password hash: {storedHash}")
+                if bcrypt.checkpw(Password, storedHash):  # Check if the password is correct
+                        return "Login successful", 200
                 else:
-                        return "Invalid username", 404
-        except Exception as e:
-                import traceback
-                print("Error occurred: ", e)
-                traceback.print_exc()  # This prints the full traceback
-                return jsonify({"error": str(e)}), 500  # This sends the error message as a response
+                        return "Invalid username or password", 404
+        else:
+                return "Invalid username", 404
 
 #fucntion to add an estimate for a part and retrieve all estimates
 #make sure to figure out how it should be done since the date is set to "todays date" in the database and the id is autoincremented
