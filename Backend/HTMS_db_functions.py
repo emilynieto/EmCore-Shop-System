@@ -1,7 +1,10 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import pymysql
 import bcrypt #this is used for hashing passwords to protect from hackers
-app = Flask(__name__)  # Initialize Flask
+
+app = Flask(__name__)
+CORS(app, origins=["http://localhost:5173"])
 
 
 
@@ -12,7 +15,6 @@ app = Flask(__name__)  # Initialize Flask
 #     password="***REMOVED***",
 #     database="htms_system"
 # )
-
 
 
 #function to connect to the database
@@ -30,6 +32,7 @@ def db_connection():
         return conn
 
 
+
 """
 # Create a REST API endpoint for your function
 @app.route('/greet', methods=['GET'])
@@ -39,30 +42,33 @@ def greet():
         return jsonify({"message": result})
 """
 
-
-@app.route('/',methods=['GET, POST'])
+@app.route('/', methods=['POST'])
 def login():
-        conn= db_connection()
-        cursor= conn.cursor()
-        if request.method =='POST':
+        try:
+                conn = db_connection()
+                cursor = conn.cursor()
                 data = request.json
-                username = data.get('username')
-                password = data.get('password').encode('utf-8')#this is to convert the password to bytes
-                sql = "SELECT password FROM Users WHERE username=%s"
-                cursor.execute(sql,(username))
+                Username = data.get('username')
+                Password = data.get('password').encode('utf-8')  # Convert the password to bytes
+                sql = "SELECT Password FROM User WHERE Username=%s"
+                cursor.execute(sql, (Username,))
                 correctPass = cursor.fetchone()
                 cursor.close()
                 conn.close()
-        if correctPass is not None:
-                storedHash = correctPass[0].encode('utf-8')#the [0] is because encode returns a tuple and the encode is to convert the password to bytes
-                if bcrypt.checkpw(password, storedHash):#this is to check if the password is correct, the password brought in from databse is already hashed
-                        return "Login successful", 200
+                if correctPass is not None:
+                        storedHash = correctPass["Password"].encode('utf-8')  # Convert the password from the database to bytes
+                        print(f"Stored password hash: {storedHash}")
+                        if bcrypt.checkpw(Password, storedHash):  # Check if the password is correct
+                                return "Login successful", 200
+                        else:
+                                return "Invalid username or password", 404
                 else:
-                        return "Invalid username or password", 404
-        else:
-                return "Invalid username", 404
-
-
+                        return "Invalid username", 404
+        except Exception as e:
+                import traceback
+                print("Error occurred: ", e)
+                traceback.print_exc()  # This prints the full traceback
+                return jsonify({"error": str(e)}), 500  # This sends the error message as a response
 
 #fucntion to add an estimate for a part and retrieve all estimates
 #make sure to figure out how it should be done since the date is set to "todays date" in the database and the id is autoincremented
@@ -164,6 +170,7 @@ def add_PackingList(ShipmentNo, WorkOrderID, ShipmentDate):
         conn.commit()
         print("✅ PackingList added successfully!")
 
+
 # Run the Flask app
 if __name__ == '__main__':
-        app.run(debug=True)
+        app.run(debug=True, port=5050)
