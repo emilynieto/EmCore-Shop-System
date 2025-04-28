@@ -2,26 +2,29 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pymysql
 import bcrypt #this is used for hashing passwords to protect from hackers
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173"]) #allows communication with react which runs in browser under that http
+CORS(app, origins=["http://localhost:5173"])  # allows communication with react
 
-
-
-#function to connect to the database
+# Function to connect to the database
 def db_connection():
-        conn = None
-        try:
-                conn = pymysql.connect(host="localhost",
-                                        user="root",
-                                        password="***REMOVED***",
-                                        database="htms_system",
-                                        cursorclass= pymysql.cursors.DictCursor #changes the SQL query responses to dictionaries, where column names are used as dictionary keys instead of using index positions (tuples).
-                                        )
-        except pymysql.Error as e:
-                print(e)
-        return conn
-
+    conn = None
+    try:
+        conn = pymysql.connect(
+            host=os.getenv("DB_HOST"),  # Using environment variable for host
+            user=os.getenv("DB_USER"),  # Using environment variable for user
+            password=os.getenv("DB_PASSWORD"),  # Using environment variable for password
+            database=os.getenv("DB_NAME"),  # Using environment variable for database
+            cursorclass=pymysql.cursors.DictCursor  # changes the SQL query responses to dictionaries
+        )
+    except pymysql.Error as e:
+        print(e)
+    return conn
 
 
 """
@@ -38,9 +41,10 @@ def login():
         conn = db_connection()
         cursor = conn.cursor()
         data = request.json
+
         Username = data.get('username')
         Password = data.get('password').encode('utf-8')  # Convert the password to bytes
-        sql = "SELECT Password FROM User WHERE Username=%s"#placeholder used to prevent SQL injection attacks
+        sql = "SELECT Password FROM User WHERE Username=%s"  # Placeholder used to prevent SQL injection attacks
         cursor.execute(sql, (Username,))#provide (username,) to give pysmysql a tuple with one value pymysql requires tuple parameters
         correctPass = cursor.fetchone()
         cursor.close()
@@ -143,13 +147,14 @@ def WorkOrder():
                 sql="Insert into WorkOrder() values(%s,%s)"
                 cursor.execute(sql,(WorkOrderID, EstimateID, Qty, Price))
                 conn.commit()
+        print("✅ WorkOrder added successfully!")
+
         if request.method == 'GET':
                 data = request.json
                 if data is not None:
                         WorkOrderID = data.get("Work Order ID")
                 else:
                         sql="SELECT * FROM WorkOrder"
-        print("✅ WorkOrder added successfully!")
 
 
 def add_Invoice(InvoiceID, shipmentNo, InvoiceDate):

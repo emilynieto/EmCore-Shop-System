@@ -1,0 +1,10 @@
+.title {
+  margin: 10px;
+}
+
+hr {
+  border: none; /* gets rid of the grey border lines that are automatically put on hr*/
+  height: 2px;
+  background-color: black;
+  margin: 10px 0;
+}

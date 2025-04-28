@@ -1,0 +1,31 @@
+.home-container {
+  text-align: center;
+  padding: 50px;
+  background-color: lightgray;
+  min-height: 100vh; /* Make it full height */
+}
+
+.home-title {
+  font-size: 48px;
+  color: #333;
+  margin-bottom: 150px; /* adds space under the title */
+}
+
+.home-buttons {
+  padding: 40px; /* space around the text inside of the button*/
+  margin: 60px; /* space around the button, in our case puts more space between our buttons*/
+  font-size: 20px;
+  border: none; /* gets rid of border outline */
+  border-radius: 8px; /* rounds the corners of the bottons, higher px means more curve, 0 is square edges */
+  cursor: pointer; /* changes the mouse to a hand icon when hovering over the buttons so that user knows the button is clickable*/
+  transition: background-color 0.3s; /* makes the transition smoother whent he background changes on hover. the new color fades in rather than switching instantaneously*/
+}
+
+.home-buttons:hover {
+  /* special psuedo class that is triggered when the user hover mouse over the button*/
+  background-color: #b0c4de; /* change that is made when the psuedo class is triggered in this case the button color*/
+}
+
+.arrow-icon {
+  font-size: 40px;
+}

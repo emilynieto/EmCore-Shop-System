@@ -1,14 +1,33 @@
 import pymysql
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Pull credentials safely from environment
+db_host = os.getenv('DB_HOST')
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASSWORD')
+db_name = os.getenv('DB_NAME')
 
 # Establish connection to the MySQL database
 conn = pymysql.connect(
-    host='localhost', 
-    user='root',
-    password='***REMOVED***',
-    database='htms_system'
+    host=db_host,
+    user=db_user,
+    password=db_password,
+    database=db_name
 )
 cursor = conn.cursor()
 print("✅ Connected to MySQL successfully!")
+
+# Create the new database if it doesn't already exist
+cursor.execute("CREATE DATABASE IF NOT EXISTS EmCore_system;")
+print("✅ Database 'EmCore_system' created (if it didn't exist).")
+
+# Select the new database
+cursor.execute("USE EmCore_system;")
+print("✅ Using 'EmCore_system' database.")
 
 # Corrected SQL Queries
 sql_queries = [

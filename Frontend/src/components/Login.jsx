@@ -21,7 +21,6 @@ function Login() {
       });
 
       if (response.ok) {
-        alert('✅ Login successful');
         navigate('/Home');
       } else {
         alert('Invalid username or password');
