@@ -2,14 +2,14 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pymysql
 import bcrypt #this is used for hashing passwords to protect from hackers
-from dotenv import load_dotenv
-import os
+from dotenv import load_dotenv #python library that will read .env file
+import os #import python os module which will allow us to use os.getenv to use our environment variables
 
 # Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173"])  # allows communication with react
+CORS(app, origins=["http://localhost:5173"])  #allows communication with react which runs in browser under that http
 
 # Function to connect to the database
 def db_connection():

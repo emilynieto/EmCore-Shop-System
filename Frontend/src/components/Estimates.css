@@ -8,3 +8,23 @@ hr {
   background-color: black;
   margin: 10px 0;
 }
+.Estimate_search {
+  margin: 20px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center; /* center the input field horizontally */
+  border-radius: 8px;
+}
+
+.entry_field input {
+  width: 100%; /* fill container width */
+  box-sizing: border-box;
+  margin-top: 10px;
+}
+
+.search_icon {
+  margin: 20px 20px;
+  font-size: 40px;
+}
