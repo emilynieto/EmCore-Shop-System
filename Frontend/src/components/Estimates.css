@@ -24,9 +24,14 @@ hr {
   margin-top: 10px;
 }
 
+.searchButton {
+  margin-top: 9px;
+  margin-left: 10px;
+  height: 40px;
+  width: 50px;
+}
 .search_icon {
-  margin: 20px 20px;
-  font-size: 40px;
+  font-size: 25px;
 }
 
 .addEstimate {

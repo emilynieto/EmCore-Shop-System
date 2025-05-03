@@ -80,7 +80,7 @@ function Estimates() {
           value={partSearch}
           onChange={(e) => setPartSearch(e.target.value)}
         />
-        <button onClick={Search}>
+        <button className="searchButton" onClick={Search}>
           <IoSearch className="search_icon" />
         </button>
       </div>
@@ -89,15 +89,40 @@ function Estimates() {
         <h2 className="addEstimateBanner">Add New Estimate Below</h2>
 
         <form onSubmit={AddPart}>
-          <EntryField label="Part Number" />
+          <EntryField
+            label="Part Number"
+            type="number"
+            value={new_PartNumber}
+            onChange={(e) => setNewPartNumber(e.target.value)}
+          />
 
-          <EntryField label="Company ID" />
+          <EntryField
+            label="Company ID"
+            type="number"
+            value={new_CompanyID}
+            onChange={(e) => setNewCompanyID(e.target.value)}
+          />
 
-          <EntryField label="Part Description" />
+          <EntryField
+            label="Part Description"
+            type="text"
+            value={new_partDesc}
+            onChange={(e) => setNewPartDesc(e.target.value)}
+          />
 
-          <EntryField label="QTY" />
+          <EntryField
+            label="QTY"
+            type="number"
+            value={new_Qty}
+            onChange={(e) => setNewQty(e.target.value)}
+          />
 
-          <EntryField label="Price" />
+          <EntryField
+            label="Price"
+            type="number"
+            value={new_price}
+            onChange={(e) => setNewPrice(e.target.value)}
+          />
         </form>
       </div>
     </>

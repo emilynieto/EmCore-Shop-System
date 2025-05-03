@@ -109,7 +109,7 @@ def Estimates():
 
 
 @app.route("/companies", methods=['GET','POST'])
-def Companys():
+def Companies():
         #this has been tested and works
         conn= db_connection()
         cursor=conn.cursor()
@@ -118,18 +118,20 @@ def Companys():
                 Company=[dict(CompanyID=row['CompanyID'], CompanyName=row['CompanyName'], address=row['address'], paymentEmail=row['paymentEmail'], BillTo=row['BillTo'], ShipTo=row['ShipTo']) for row in cursor.fetchall()]
                 cursor.close()
                 conn.close()
-                if Company is not None:
+                if Company:
                         return jsonify(Company)
                 else:
                         return "Something went wrong", 404
         #this has been tested and works
         if request.method == 'POST':
                 data=request.json
+
                 new_CompanyName=data.get('CompanyName')
                 new_address=data.get('address')
                 new_paymentEmail=data.get('paymentEmail')
                 new_BillTo=data.get('BillTo')
                 new_ShipTo=data.get('ShipTo')
+                
                 sql="Insert into Company(CompanyName, address, paymentEmail, BillTo, ShipTo) values(%s,%s, %s, %s, %s)"
                 cursor.execute(sql,(new_CompanyName, new_address, new_paymentEmail, new_BillTo, new_ShipTo))
                 conn.commit()
