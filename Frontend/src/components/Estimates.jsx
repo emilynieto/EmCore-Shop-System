@@ -7,8 +7,30 @@ import { IoSearch } from 'react-icons/io5';
 function Estimates() {
   const [partSearch, setPartSearch] = useState('');
 
-  const Search = () => {
-    alert('searching for', { partSearch });
+  const Search = async (e) => {
+    alert(`searching for ${partSearch}`);
+    e.preventDefault(); // prevent page reload
+    try {
+      const query = encodeURIComponent(partSearch);
+      const response = await fetch(
+        `http://localhost:5050/estimates?partSearch=${query}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (response.ok) {
+        alert('found it');
+      } else {
+        alert('doesnt exist');
+      }
+    } catch (error) {
+      console.error('search', error);
+      alert('Error connecting to server.');
+    }
   };
 
   return (

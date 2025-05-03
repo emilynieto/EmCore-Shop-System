@@ -61,17 +61,26 @@ def login():
 
 #fucntion to add an estimate for a part and retrieve all estimates
 #make sure to figure out how it should be done since the date is set to "todays date" in the database and the id is autoincremented
-@app.route('/Estimates', methods=['GET','POST'])
+@app.route('/estimates', methods=['GET','POST'])
 def Estimates():
-        #this has been tested and works
+        #this has been tested and works(GET)
         conn=db_connection()
         cursor=conn.cursor()
+        Estimate=[]
+        
         if request.method == 'GET':
-                cursor.execute("SELECT * FROM Estimate")
-                Estimate =[dict(EstimateID=row['EstimateID'], PartNumber=row['PartNo'], CompanyID=row['CompanyID'], partDesc=row['partDescription'], Qty=row['QTY'], price=row['Price'], DateCreated=row['DateCreated']) for row in cursor.fetchall()]
-                cursor.close()
-                conn.close()
-                if Estimate is not None:
+                part_search = request.args.get('partSearch')
+
+                if part_search:
+                        cursor.execute("SELECT * FROM Estimate WHERE PartNo = %s", (part_search,))
+
+                else:
+                        cursor.execute("SELECT * FROM Estimate")
+
+                        Estimate =[dict(EstimateID=row['EstimateID'], PartNumber=row['PartNo'], CompanyID=row['CompanyID'], partDesc=row['partDescription'], Qty=row['QTY'], price=row['Price'], DateCreated=row['DateCreated']) for row in cursor.fetchall()]
+                        cursor.close()
+                        conn.close()
+                if Estimate:
                         return jsonify(Estimate)
                 else:
                         return "Something went wrong", 404
@@ -99,7 +108,7 @@ def Estimates():
                 return "Estimate added successfully", 201
 
 
-@app.route("/Companies", methods=['GET','POST'])
+@app.route("/companies", methods=['GET','POST'])
 def Companys():
         #this has been tested and works
         conn= db_connection()
@@ -132,7 +141,7 @@ def Companys():
 
 
 
-@app.route("/WorkOrder", methods=['GET','POST'])
+@app.route("/workorder", methods=['GET','POST'])
 def WorkOrder():
         conn= db_connection()
         cursor=conn.cursor()
