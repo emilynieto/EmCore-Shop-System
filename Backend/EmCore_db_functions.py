@@ -110,36 +110,39 @@ def Estimates():
 
 @app.route("/companies", methods=['GET','POST'])
 def Companies():
-        #this has been tested and works
-        conn= db_connection()
-        cursor=conn.cursor()
-        if request.method == 'GET':
-                cursor.execute("SELECT * FROM Company")
-                Company=[dict(CompanyID=row['CompanyID'], CompanyName=row['CompanyName'], address=row['address'], paymentEmail=row['paymentEmail'], BillTo=row['BillTo'], ShipTo=row['ShipTo']) for row in cursor.fetchall()]
-                cursor.close()
-                conn.close()
-                if Company:
-                        return jsonify(Company)
-                else:
-                        return "Something went wrong", 404
-        #this has been tested and works
-        if request.method == 'POST':
-                data=request.json
+        # this has been tested and works
+        try:
+                conn = db_connection()
+                cursor = conn.cursor()
+                if request.method == 'GET':
+                        cursor.execute("SELECT * FROM Company")
+                        Company = [dict(CompanyID=row['CompanyID'], CompanyName=row['CompanyName'], address=row['address'], paymentEmail=row['paymentEmail'], BillTo=row['BillTo'], ShipTo=row['ShipTo']) for row in cursor.fetchall()]
+                        cursor.close()
+                        conn.close()
+                        if Company:
+                                return jsonify(Company)
+                        else:
+                                return [] #flask route is expected to return an array evertime so we return an empy one if there are no companies in database
+                # this has been tested and works
+                if request.method == 'POST':
+                        data = request.json
 
-                new_CompanyName=data.get('CompanyName')
-                new_address=data.get('address')
-                new_paymentEmail=data.get('paymentEmail')
-                new_BillTo=data.get('BillTo')
-                new_ShipTo=data.get('ShipTo')
-                
-                sql="Insert into Company(CompanyName, address, paymentEmail, BillTo, ShipTo) values(%s,%s, %s, %s, %s)"
-                cursor.execute(sql,(new_CompanyName, new_address, new_paymentEmail, new_BillTo, new_ShipTo))
-                conn.commit()
-                print("✅ Company added successfully!")
-                cursor.close()
-                conn.close()
-                return "Company added successfully", 201
+                        new_CompanyName = data.get('CompanyName')
+                        new_address = data.get('address')
+                        new_paymentEmail = data.get('paymentEmail')
+                        new_BillTo = data.get('BillTo')
+                        new_ShipTo = data.get('ShipTo')
 
+                        sql = "Insert into Company(CompanyName, address, paymentEmail, BillTo, ShipTo) values(%s,%s, %s, %s, %s)"
+                        cursor.execute(sql, (new_CompanyName, new_address, new_paymentEmail, new_BillTo, new_ShipTo))
+                        conn.commit()
+                        print("✅ Company added successfully!")
+                        cursor.close()
+                        conn.close()
+                        return "Company added successfully", 201
+        except Exception as e:
+                print(f"An error occurred: {e}")
+                return "An error occurred", 500
 
 
 

@@ -1,0 +1,20 @@
+.dropDownField {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.dropDownField label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.dropDownField select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+}

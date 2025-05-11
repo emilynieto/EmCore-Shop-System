@@ -2,6 +2,8 @@ import './Estimates.css';
 import React, { useState } from 'react';
 
 import EntryField from './EntryField';
+import CompanyDropdown from './CompanyDropdown';
+import AddCompanyPopup from './AddCompanyPopup';
 import { IoSearch } from 'react-icons/io5';
 
 function Estimates() {
@@ -11,6 +13,18 @@ function Estimates() {
   const [new_partDesc, setNewPartDesc] = useState('');
   const [new_Qty, setNewQty] = useState('');
   const [new_price, setNewPrice] = useState('');
+
+  // assigns value of new company id to the one selected in the drop down
+  const handleSelectCompany = (companyID) => {
+    setNewCompanyID(companyID);
+  };
+
+  //////////////////////////////need to add refernce object for popup here //////////////////////
+  // Handle adding a new company (triggered by clicking "Add new company")
+  const handleAddNewCompany = () => {
+    // Logic to show a popup or trigger the functionality to add a new company
+    alert('Add New Company clicked!');
+  };
 
   const Search = async (e) => {
     alert(`searching for ${partSearch}`);
@@ -96,11 +110,11 @@ function Estimates() {
             onChange={(e) => setNewPartNumber(e.target.value)}
           />
 
-          <EntryField
-            label="Company ID"
-            type="number"
-            value={new_CompanyID}
-            onChange={(e) => setNewCompanyID(e.target.value)}
+          <CompanyDropdown
+            label="Company"
+            selectedCompanyID={new_CompanyID}
+            onSelectCompany={handleSelectCompany}
+            onAddNewCompany={handleAddNewCompany}
           />
 
           <EntryField
@@ -118,7 +132,7 @@ function Estimates() {
           />
 
           <EntryField
-            label="Price"
+            label="Price(USD)"
             type="number"
             value={new_price}
             onChange={(e) => setNewPrice(e.target.value)}
