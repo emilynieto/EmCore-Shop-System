@@ -13,6 +13,7 @@ function Estimates() {
   const [new_partDesc, setNewPartDesc] = useState('');
   const [new_Qty, setNewQty] = useState('');
   const [new_price, setNewPrice] = useState('');
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   // assigns value of new company id to the one selected in the drop down
   const handleSelectCompany = (companyID) => {
@@ -23,7 +24,7 @@ function Estimates() {
   // Handle adding a new company (triggered by clicking "Add new company")
   const handleAddNewCompany = () => {
     // Logic to show a popup or trigger the functionality to add a new company
-    alert('Add New Company clicked!');
+    setIsPopupOpen(true);
   };
 
   const Search = async (e) => {
@@ -32,7 +33,7 @@ function Estimates() {
     try {
       const query = encodeURIComponent(partSearch);
       const response = await fetch(
-        `http://localhost:5050/estimates?partSearch=${query}`,
+        `http://localhost:5050/estimates?partNo=${query}`,
         {
           method: 'GET',
           headers: {
@@ -137,8 +138,10 @@ function Estimates() {
             value={new_price}
             onChange={(e) => setNewPrice(e.target.value)}
           />
+          <button type="submit">Submit</button>
         </form>
       </div>
+      {isPopupOpen && <AddCompanyPopup onClose={() => setIsPopupOpen(false)} />}
     </>
   );
 }

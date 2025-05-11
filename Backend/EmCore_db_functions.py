@@ -91,11 +91,11 @@ def Estimates():
                 data = request.json
         
                 # Access JSON data
-                new_PartNumber = data.get('PartNo')
-                new_CompanyID = data.get('CompanyID')
-                new_partDesc = data.get('partDescription')
-                new_Qty = data.get('QTY')
-                new_price = data.get('Price')
+                new_PartNumber = data.get('new_PartNumber')
+                new_CompanyID = data.get('new_CompanyID')
+                new_partDesc = data.get('new_partDesc')
+                new_Qty = data.get('new_Qty')
+                new_price = data.get('new_price')
 
                 sql = """INSERT INTO Estimate (PartNo, CompanyID, partDescription, QTY, Price) VALUES ( %s, %s, %s, %s, %s)"""
 
