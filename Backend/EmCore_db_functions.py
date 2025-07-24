@@ -61,30 +61,34 @@ def login():
 
 #fucntion to add an estimate for a part and retrieve all estimates
 #make sure to figure out how it should be done since the date is set to "todays date" in the database and the id is autoincremented
-@app.route('/estimates', methods=['GET','POST'])
+@app.route('/estimates', methods=['GET', 'POST'])
 def Estimates():
-        #this has been tested and works(GET)
-        conn=db_connection()
-        cursor=conn.cursor()
-        Estimate=[]
-        
+        conn = db_connection()
+        cursor = conn.cursor()
+        Estimate = []
+
         if request.method == 'GET':
-                part_search = request.args.get('partSearch')
+                part_search = request.args.get('partNo')
 
                 if part_search:
                         cursor.execute("SELECT * FROM Estimate WHERE PartNo = %s", (part_search,))
-
                 else:
                         cursor.execute("SELECT * FROM Estimate")
 
-                        Estimate =[dict(EstimateID=row['EstimateID'], PartNumber=row['PartNo'], CompanyID=row['CompanyID'], partDesc=row['partDescription'], Qty=row['QTY'], price=row['Price'], DateCreated=row['DateCreated']) for row in cursor.fetchall()]
-                        cursor.close()
-                        conn.close()
+                Estimate = [
+                        dict(EstimateID=row['EstimateID'], PartNumber=row['PartNo'], CompanyID=row['CompanyID'],
+                        partDesc=row['partDescription'], Qty=row['QTY'], price=row['Price'], DateCreated=row['DateCreated'])
+                        for row in cursor.fetchall()
+                ]
+
+                cursor.close()
+                conn.close()
+
                 if Estimate:
                         return jsonify(Estimate)
                 else:
-                        return "Something went wrong", 404
-        
+                        return jsonify([])  # Return empty list for no match
+
         #this has been tested and works        
         if request.method == 'POST':
                 # Extracting data from the JSON body

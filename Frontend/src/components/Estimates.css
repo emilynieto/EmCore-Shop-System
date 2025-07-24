@@ -1,64 +1,223 @@
 .pageContainer {
-  height: 100vh;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  padding: 2rem;
 }
 
 .title {
-  margin: 10px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 2rem 0;
+  text-align: center;
 }
 
-hr {
-  border: none; /* gets rid of the grey border lines that are automatically put on hr*/
-  height: 2px;
-  background-color: black;
-  margin: 10px 0;
+/* Main layout: Left half for forms, right half for results */
+.estimates-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+  align-items: stretch; /* Make both columns same height */
 }
-.Estimate_search {
-  margin: 20px;
-  width: 300px;
+
+/* Left column - Forms (takes up left half) */
+.forms-column {
   display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.search-section {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.add-section {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+/* Search form styling - Adjusted alignment */
+.Estimate_search {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end; /* Back to flex-end to align with input bottom */
+  margin-bottom: 1rem;
+}
+
+.search-input-wrapper {
+  flex: 1;
+}
+
+.search-input-wrapper .entry_field {
+  margin-bottom: 0; /* Remove bottom margin to prevent misalignment */
+}
+
+.search-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.875rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  flex-direction: row;
-  align-items: center; /* center the input field horizontally */
-  border-radius: 8px;
+  gap: 0.5rem;
+  height: 48px; /* Match the height of the input field */
+  min-width: 100px;
+  margin-top: 8px; /* Add small top margin to lower the button slightly */
+}
+
+.search-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+/* Form inputs - stretch to fill left half */
+.entry_field {
+  margin-bottom: 1rem;
 }
 
 .entry_field input {
-  width: 100%; /* fill container width */
-  box-sizing: border-box;
-  margin-top: 10px;
-}
-
-.searchButton {
-  margin-top: 9px;
-  margin-left: 10px;
-  height: 40px;
-  width: 50px;
-}
-.search_icon {
-  font-size: 25px;
-}
-
-.addEstimate {
-  width: 20%;
-  margin-left: 20px;
-  margin-top: 50px;
-  height: 20%;
-}
-
-.addEstimateBanner {
-  margin-bottom: 40px;
-}
-
-.resultsContainer {
-  float: right;
-
-  width: 60%;
-  margin-right: 2rem;
-}
-
-.table {
   width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 48px; /* Ensure consistent height */
+  /* No max-width so it fills the entire left column */
+}
+
+/* Right column - Results (takes up right half) */
+.results-column {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  /* Grid stretch will make this match left column height automatically */
+}
+
+.results-header {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border-color);
+  flex-shrink: 0; /* Keep header fixed */
+}
+
+.search-results {
+  flex: 1; /* Take all remaining space in the results column */
+  overflow-y: scroll; /* Scroll only this section when needed */
+  padding-right: 0.5rem; /* Space for scrollbar */
+  max-height: 750px;
+}
+
+.result-item {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.result-item:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-1px);
+}
+
+.result-item:last-child {
+  margin-bottom: 0;
+}
+
+.result-field {
+  margin-bottom: 0.5rem;
+}
+
+.result-label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.result-value {
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.no-results {
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* Button styling */
+.btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+}
+
+.btn-secondary:hover {
+  background-color: #475569;
+}
+
+/* Hide old hr styling */
+hr {
+  display: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .estimates-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .pageContainer {
+    padding: 1rem;
+  }
+
+  .results-column {
+    min-height: 400px; /* Minimum height on mobile */
+  }
+}
+
+/* Remove old content-grid styles */
+.content-grid {
+  display: none;
 }

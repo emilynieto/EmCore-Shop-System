@@ -1,31 +1,46 @@
 .home-container {
-  text-align: center;
-  padding: 50px;
-  background-color: lightgray;
-  min-height: 100vh; /* Make it full height */
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 }
 
 .home-title {
-  font-size: 48px;
-  color: #333;
-  margin-bottom: 150px; /* adds space under the title */
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 3rem;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .home-buttons {
-  padding: 40px; /* space around the text inside of the button*/
-  margin: 60px; /* space around the button, in our case puts more space between our buttons*/
-  font-size: 20px;
-  border: none; /* gets rid of border outline */
-  border-radius: 8px; /* rounds the corners of the bottons, higher px means more curve, 0 is square edges */
-  cursor: pointer; /* changes the mouse to a hand icon when hovering over the buttons so that user knows the button is clickable*/
-  transition: background-color 0.3s; /* makes the transition smoother whent he background changes on hover. the new color fades in rather than switching instantaneously*/
+  background: white;
+  color: var(--primary-color);
+  padding: 1.5rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  min-width: 160px;
+  margin: 0.5rem;
 }
 
 .home-buttons:hover {
-  /* special psuedo class that is triggered when the user hover mouse over the button*/
-  background-color: #b0c4de; /* change that is made when the psuedo class is triggered in this case the button color*/
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.2);
+  background: var(--primary-color);
+  color: white;
 }
 
-.arrow-icon {
-  font-size: 40px;
+@media (max-width: 768px) {
+  .home-title {
+    font-size: 2.5rem;
+  }
 }
