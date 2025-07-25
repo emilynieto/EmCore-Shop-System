@@ -14,7 +14,7 @@ function Estimates() {
   const [new_Qty, setNewQty] = useState('');
   const [new_price, setNewPrice] = useState('');
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState([]); //react state hook that manages search results
 
   // assigns value of new company id to the one selected in the drop down
   const handleSelectCompany = (companyID) => {
