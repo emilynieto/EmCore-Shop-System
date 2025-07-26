@@ -165,7 +165,7 @@
   .workorders-main {
     flex-direction: column;
   }
-  
+
   .workorders-left-column {
     max-width: none;
   }
@@ -178,15 +178,15 @@
     gap: 1rem;
     align-items: flex-start;
   }
-  
+
   .workorders-title {
     font-size: 1.5rem;
   }
-  
+
   .navigation-links {
     gap: 1rem;
   }
-  
+
   .workorders-container {
     padding: 1rem;
   }
@@ -249,15 +249,15 @@
     gap: 1rem;
     align-items: flex-start;
   }
-  
+
   .navigation-buttons {
     align-self: flex-end;
   }
-  
+
   .nav-button span {
     display: none; /* Hide text on mobile, show only icons */
   }
-  
+
   .nav-button {
     padding: 0.5rem;
     min-width: 40px;

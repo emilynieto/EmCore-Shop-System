@@ -9,9 +9,6 @@ function WorkOrders() {
   const navigate = useNavigate();
 
   const [searchWO, setSearchWO] = useState('');
-  const [PurchaseOrder, setPartSearch] = useState('');
-  const [Date, setDate] = useState('');
-  const [CompanyID, setCompanyID] = useState('');
   const [searchResults, setSearchResults] = useState([]); //react state hook that manages search results
 
   const Search = async (e) => {
@@ -47,10 +44,10 @@ function WorkOrders() {
       {/* Header with navigation buttons */}
       <div className="workorders-header">
         <h1 className="workorders-title">Work Orders</h1>
-        
+
         {/* Navigation buttons */}
         <div className="navigation-buttons">
-          <button 
+          <button
             className="nav-button back-button"
             onClick={() => navigate(-1)}
             title="Go Back"
@@ -58,10 +55,10 @@ function WorkOrders() {
             <FaArrowLeft />
             <span>Back</span>
           </button>
-          
-          <button 
+
+          <button
             className="nav-button home-button"
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/Home')}
             title="Go to Home"
           >
             <FaHome />
@@ -92,7 +89,7 @@ function WorkOrders() {
 
           {/* Create New Work Order Button */}
           <div className="create-section">
-            <button 
+            <button
               className="create-workorder-button"
               onClick={() => navigate('/create-workorder')}
             >
@@ -109,15 +106,25 @@ function WorkOrders() {
               <div className="results-container">
                 {searchResults.map((workOrder, index) => (
                   <div key={index} className="work-order-card">
-                    <p><strong>Work Order ID:</strong> {workOrder.WorkOrderID}</p>
-                    <p><strong>Estimate ID:</strong> {workOrder.EstimateID}</p>
-                    <p><strong>Quantity:</strong> {workOrder.Qty}</p>
-                    <p><strong>Price:</strong> ${workOrder.Price}</p>
+                    <p>
+                      <strong>Work Order ID:</strong> {workOrder.WorkOrderID}
+                    </p>
+                    <p>
+                      <strong>Estimate ID:</strong> {workOrder.EstimateID}
+                    </p>
+                    <p>
+                      <strong>Quantity:</strong> {workOrder.Qty}
+                    </p>
+                    <p>
+                      <strong>Price:</strong> ${workOrder.Price}
+                    </p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="no-results">No work orders found. Try searching for a Work Order ID.</p>
+              <p className="no-results">
+                No work orders found. Try searching for a Work Order ID.
+              </p>
             )}
           </div>
         </div>
