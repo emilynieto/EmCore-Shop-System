@@ -42,12 +42,6 @@ function CreateWorkOrder() {
     generateWorkOrderID();
   }, []);
 
-  const generateWorkOrderID = () => {
-    const timestamp = Date.now();
-    const randomNum = Math.floor(Math.random() * 1000);
-    setWorkOrderID(`WO-${timestamp}-${randomNum}`);
-  };
-
   // Handle company selection
   const handleSelectCompany = (companyID) => {
     setSelectedCompanyID(companyID);
@@ -68,7 +62,6 @@ function CreateWorkOrder() {
       qty: '',
       partNumber: '',
       price: '',
-      blank: '',
       description: '',
       dueDate: '',
     };
@@ -233,8 +226,7 @@ function CreateWorkOrder() {
                   <tr>
                     <th>QTY</th>
                     <th>Part Number</th>
-                    <th>Price</th>
-                    <th></th>
+                    <th>Price(EA)</th>
                     <th>Description</th>
                     <th>Due Date</th>
                     <th>Actions</th>

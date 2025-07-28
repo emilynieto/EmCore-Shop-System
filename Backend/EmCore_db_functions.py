@@ -158,12 +158,11 @@ def WorkOrder():
 
         if request.method == 'POST':
                 data = request.json
-                WorkOrderID = data.get("Work Order ID")
                 EstimateID = data.get("EstimateID")
                 Qty = data.get("QTY")
                 Price = data.get("Price")
-                sql="Insert into WorkOrder() values(%s,%s)"
-                cursor.execute(sql,(WorkOrderID, EstimateID, Qty, Price))
+                sql="Insert into WorkOrder(EstimateID, Qty, Price) values(%s,%s,%s)"
+                cursor.execute(sql,(EstimateID, Qty, Price))
                 conn.commit()
         print("✅ WorkOrder added successfully!")
 
